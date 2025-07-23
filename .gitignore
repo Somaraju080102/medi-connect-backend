@@ -1,0 +1,18 @@
+# Java / Spring Boot
+**/target/
+**/.idea/
+**/.classpath
+**/.project
+**/.settings/
+**/*.iml
+
+# Logs
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
