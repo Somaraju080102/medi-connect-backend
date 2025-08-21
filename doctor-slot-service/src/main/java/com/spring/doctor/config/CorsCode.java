@@ -12,7 +12,7 @@ public class CorsCode implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // Allow access to all endpoints
                 .allowedOrigins("http://localhost:5173")  // Allow only this origin (React app)
-                .allowedMethods("GET", "POST", "PUT", "DELETE")  // Allow specific HTTP methods
+                .allowedMethods("GET", "POST", "PUT", "DELETE","PATCH")  // Allow specific HTTP methods
                 .allowedHeaders("*")  // Allow all headers
                 .allowCredentials(true);  // Allow credentials (e.g., cookies, authorization headers)
     }
