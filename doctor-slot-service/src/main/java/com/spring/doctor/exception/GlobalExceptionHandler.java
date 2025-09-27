@@ -17,17 +17,23 @@ import jakarta.persistence.EntityNotFoundException;
 public class GlobalExceptionHandler {
 	 @ExceptionHandler(EntityNotFoundException.class)
 	    public ResponseEntity<ApiErrorResponse> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
+		 
+		 System.out.println("Method 1 calling");
 	        ApiErrorResponse response = new ApiErrorResponse(
 	                HttpStatus.NOT_FOUND.value(),
 	                "Entity Not Found",
 	                ex.getMessage(),
 	                request.getDescription(false)
+	                
 	        );
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 	    }
 
 	    @ExceptionHandler(MethodArgumentNotValidException.class)
 	    public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex, WebRequest request) {
+	    	
+			 System.out.println("Method 2 calling");
+
 	        String errors = ex.getBindingResult()
 	                          .getFieldErrors()
 	                          .stream()
@@ -45,6 +51,9 @@ public class GlobalExceptionHandler {
 
 	    @ExceptionHandler(Exception.class)
 	    public ResponseEntity<ApiErrorResponse> handleGeneral(Exception ex, WebRequest request) {
+	    	
+			 System.out.println("Method 3 calling");
+
 	        ApiErrorResponse response = new ApiErrorResponse(
 	                HttpStatus.INTERNAL_SERVER_ERROR.value(),
 	                "Server Error",

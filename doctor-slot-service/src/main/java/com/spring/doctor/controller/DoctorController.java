@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.doctor.dto.DoctorInfo;
 import com.spring.doctor.dto.DoctorResponse;
 import com.spring.doctor.dto.DoctorSummary;
 import com.spring.doctor.entity.Doctor;
@@ -26,7 +27,12 @@ public class DoctorController {
 		
 		return ResponseEntity.ok(doctorService.getBySpec(specialization));
 		
+	}
+	
+	@GetMapping("/allDoctors")
+	public ResponseEntity<List<DoctorInfo>> getAllDoctors(){
 		
+		return ResponseEntity.ok(doctorService.getAllDoctor());
 	}
 
 }
