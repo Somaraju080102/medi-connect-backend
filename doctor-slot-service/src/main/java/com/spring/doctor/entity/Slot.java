@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.doctor.model.SlotStatus;
 
 import jakarta.persistence.Entity;
@@ -28,9 +29,11 @@ public class Slot {
 	SlotStatus status;
 	@ManyToOne
 	@JoinColumn(name = "doctor_id", nullable = false)
+	@JsonIgnore
 	Doctor doctor;
 	@ManyToOne
 	@JoinColumn(name="patient_id")
+	@JsonIgnore
 	Patient patient;
 	public Long getId() {
 		return id;

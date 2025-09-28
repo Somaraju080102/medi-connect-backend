@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +21,7 @@ public class Doctor {
 	private String phone;
 	private String specialization;
 	private String hospital;
-	@OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private  List<Slot> slots;
 
 	public String getEmail() {

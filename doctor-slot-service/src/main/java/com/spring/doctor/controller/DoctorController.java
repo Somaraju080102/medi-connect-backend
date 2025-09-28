@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.doctor.dto.DoctorInfo;
 import com.spring.doctor.dto.DoctorResponse;
+import com.spring.doctor.dto.DoctorSpecilizations;
 import com.spring.doctor.dto.DoctorSummary;
 import com.spring.doctor.entity.Doctor;
 import com.spring.doctor.service.DoctorService;
@@ -29,10 +30,22 @@ public class DoctorController {
 		
 	}
 	
+	@GetMapping("/specilizations")
+	public ResponseEntity<List<String>> getDoctorsWithSpecilization(){
+		
+		return ResponseEntity.ok(doctorService.doctorSpecilizations());
+		
+	}
+	
 	@GetMapping("/allDoctors")
 	public ResponseEntity<List<DoctorInfo>> getAllDoctors(){
 		
 		return ResponseEntity.ok(doctorService.getAllDoctor());
+	}
+	@GetMapping("/doc")
+	public ResponseEntity<List<Doctor>> getDoc(){
+		
+		return ResponseEntity.ok(doctorService.filterDoctor());
 	}
 
 }

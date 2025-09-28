@@ -8,6 +8,8 @@ public class GobalException {
 	
 	public String handleGlobalException(Exception msg) {
 		
+		
+		
 		return "Sorry you have face following Exception"+msg;
 		
 	}
