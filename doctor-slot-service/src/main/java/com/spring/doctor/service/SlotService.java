@@ -16,6 +16,7 @@ public interface SlotService {
 	SlotResponse bookSlot(BookSlotRequest bookSlotRequest);
 	List<SlotResponse> getAvailableSlotsWithDoctor(Long doctorId);
 	ResponseEntity<String> cancelSlotWithId(Long slotId);
+	SlotResponse bookSlotForPatient(Long slotId, Long patientId);
 
 }
 

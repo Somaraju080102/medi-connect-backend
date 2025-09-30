@@ -76,12 +76,15 @@ public class SlotServiceImpl implements SlotService {
 
     @Override
     public List<SlotResponse> getSlotsByDoctor(Long doctorId) {
+    	System.out.println("method is calling");
         List<Slot> slots = slotRepository.findByDoctorId(doctorId);
         return slots.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
     
+
+	
     
 
     @Override
@@ -114,6 +117,7 @@ public class SlotServiceImpl implements SlotService {
         res.setEndTime(slot.getEndTime());
         res.setDoctorName(slot.getDoctor().getName());
         res.setStatus(slot.getStatus());
+        res.setDoctorId(slot.getDoctor().getId());
         return res;
     }
 
@@ -142,5 +146,18 @@ public class SlotServiceImpl implements SlotService {
 		
 		return ResponseEntity.ok("Slot successfully cancelled and marked as available");
 		
+	}
+
+	@Override
+	public SlotResponse bookSlotForPatient(Long slotId,Long patientId) {
+		
+		Optional<Slot> byId = slotRepository.findById(slotId);
+		
+		if(byId.isPresent()) {
+			
+			return mapToResponse(byId.get());
+		}
+		
+		return null;
 	}
 }

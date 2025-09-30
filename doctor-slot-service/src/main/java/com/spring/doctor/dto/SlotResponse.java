@@ -13,7 +13,16 @@ public class SlotResponse {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String doctorName;
-    private SlotStatus status;
+    
+    private Long doctorId;
+    
+    public Long getDoctorId() {
+		return doctorId;
+	}
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
+	private SlotStatus status;
 	public Long getId() {
 		return id;
 	}

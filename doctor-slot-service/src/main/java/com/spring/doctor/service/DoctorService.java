@@ -11,6 +11,7 @@ import com.spring.doctor.dto.DoctorInfo;
 import com.spring.doctor.dto.DoctorResponse;
 import com.spring.doctor.dto.DoctorSpecilizations;
 import com.spring.doctor.dto.DoctorSummary;
+import com.spring.doctor.dto.SlotResponse;
 import com.spring.doctor.entity.Doctor;
 import com.spring.doctor.repository.DoctorRepository;
 
@@ -49,6 +50,12 @@ public class DoctorService {
 		
 		
 		
+	}
+	
+	
+	public List<DoctorSummary> getDoctorBySpecilization(String specilization){
+		
+		return doctorRepository.findBySpecialization(specilization);
 	}
 	
 

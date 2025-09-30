@@ -19,7 +19,7 @@ import com.spring.doctor.entity.Slot;
 import com.spring.doctor.service.SlotService;
 
 @RestController
-@RequestMapping("/api/slots")
+@RequestMapping("/slots")
 public class SlotController {
 	
 	 @Autowired
@@ -35,7 +35,7 @@ public class SlotController {
 	        return ResponseEntity.ok(slotService.createSlot(request));
 	    }
 
-	    @GetMapping("/doctor/{doctorId}")
+	    @GetMapping("/{doctorId}")
 	    public ResponseEntity<List<SlotResponse>> getSlots(@PathVariable Long doctorId) {
 	        return ResponseEntity.ok(slotService.getSlotsByDoctor(doctorId));
 	    }
@@ -43,6 +43,11 @@ public class SlotController {
 	    @PostMapping("/book")
 	    public ResponseEntity<SlotResponse> bookSlot(@RequestBody BookSlotRequest request) {
 	        return ResponseEntity.ok(slotService.bookSlot(request));
+	    }
+	    
+	    @GetMapping("/book/{slotId}/{patientId}")
+	    public ResponseEntity<SlotResponse> bookSlot(@PathVariable Long slotId,Long patientId) {
+	        return ResponseEntity.ok(slotService.bookSlotForPatient(slotId,patientId));
 	    }
 	    
 	    @PatchMapping("/{slotId}/cancel")

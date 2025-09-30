@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +32,19 @@ public class DoctorController {
 	}
 	
 	@GetMapping("/specilizations")
-	public ResponseEntity<List<String>> getDoctorsWithSpecilization(){
+	public ResponseEntity<List<String>> getDoctorsSpecilization(){
 		
 		return ResponseEntity.ok(doctorService.doctorSpecilizations());
+		
+	}
+	
+	@GetMapping("/doctor/{specilization}")
+	public ResponseEntity<List<DoctorSummary>> getDoctorsWithSpecilization(@PathVariable String specilization){
+		System.out.println("specializatio : "+" "+specilization);
+		
+		List<DoctorSummary> doctorBySpecilization = doctorService.getDoctorBySpecilization(specilization);
+		
+		return ResponseEntity.ok(doctorBySpecilization);
 		
 	}
 	
