@@ -25,6 +25,54 @@ public class Appointments {
 	
 	private Long doctorId;
 	
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
+	}
+
+	public Long getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
+
+	public Long getSlotId() {
+		return slotId;
+	}
+
+	public void setSlotId(Long slotId) {
+		this.slotId = slotId;
+	}
+
+	public AppointmentStatus getAppointmentStatus() {
+		return appointmentStatus;
+	}
+
+	public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+		this.appointmentStatus = appointmentStatus;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
 	private Long slotId;
 	
 	private AppointmentStatus appointmentStatus;
@@ -33,6 +81,27 @@ public class Appointments {
 	@JoinColumn(name = "Patient_fk", nullable = false)
 	private Patient patient;
 	
+	private LocalDateTime slotStartTime;
+	
+	private LocalDateTime slotEndTime;
+	
+	
+	public LocalDateTime getSlotStartTime() {
+		return slotStartTime;
+	}
+
+	public void setSlotStartTime(LocalDateTime slotStartTime) {
+		this.slotStartTime = slotStartTime;
+	}
+
+	public LocalDateTime getSlotEndTime() {
+		return slotEndTime;
+	}
+
+	public void setSlotEndTime(LocalDateTime slotEndTime) {
+		this.slotEndTime = slotEndTime;
+	}
+
 	@CreationTimestamp
 	private LocalDateTime creatDateTime;
 	

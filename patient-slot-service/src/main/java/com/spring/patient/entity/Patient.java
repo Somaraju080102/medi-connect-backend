@@ -37,6 +37,55 @@ public class Patient {
 	
 	@UpdateTimestamp
 	private LocalDateTime updDateTime;
+
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public Integer getPatientAge() {
+		return patientAge;
+	}
+
+	public void setPatientAge(Integer patientAge) {
+		this.patientAge = patientAge;
+	}
+
+	public String getPatientEmail() {
+		return patientEmail;
+	}
+
+	public void setPatientEmail(String patientEmail) {
+		this.patientEmail = patientEmail;
+	}
+
+	public String getPatientPhone() {
+		return patientPhone;
+	}
+
+	public void setPatientPhone(String patientPhone) {
+		this.patientPhone = patientPhone;
+	}
+
+	public List<Appointments> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appointments> appointments) {
+		this.appointments = appointments;
+	}
+	
 	
 	
 	
