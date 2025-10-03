@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.patient.dto.AppointmentDto;
 import com.spring.patient.repo.AppointmentRepo;
 import com.spring.patient.service.DoctorMicroService;
 
@@ -25,9 +26,9 @@ public class PatientController {
 	
 	
 	@GetMapping("/doctoslots")
-	public ResponseEntity<Mono<String>> getSlots(){
+	public ResponseEntity<Mono<AppointmentDto>> getSlots(){
 		
-		Mono<String> slotInfo = dcotorMicroService.getSlotInfo(453, 1);
+		Mono<AppointmentDto> slotInfo = dcotorMicroService.getSlotInfo(453, 1);
 		
 		return ResponseEntity.ok(slotInfo);
 	}
