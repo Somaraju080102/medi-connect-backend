@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.spring.patient.entity.model.AppointmentStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -75,6 +77,7 @@ public class Appointments {
 
 	private Long slotId;
 	
+	@Enumerated(EnumType.STRING)
 	private AppointmentStatus appointmentStatus;
 	
 	@ManyToOne
