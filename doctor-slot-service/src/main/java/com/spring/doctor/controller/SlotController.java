@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.doctor.dto.BookSlotRequest;
 import com.spring.doctor.dto.CreateSlotRequest;
+import com.spring.doctor.dto.PatientEmailService;
 import com.spring.doctor.dto.SlotResponse;
 import com.spring.doctor.entity.Slot;
 import com.spring.doctor.service.SlotService;
@@ -48,6 +49,10 @@ public class SlotController {
 	    @GetMapping("/book/{slotId}/{patientId}")
 	    public ResponseEntity<SlotResponse> bookSlot(@PathVariable Long slotId,Long patientId) {
 	        return ResponseEntity.ok(slotService.bookSlotForPatient(slotId,patientId));
+	    }
+	    @PostMapping("/book/{slotId}")
+	    public ResponseEntity<SlotResponse> bookSlot(@RequestBody PatientEmailService patientEmailService,@PathVariable Long slotId ) {
+	        return ResponseEntity.ok(slotService.bookSlotForPatient(patientEmailService,slotId));
 	    }
 	    
 	    @PatchMapping("/{slotId}/cancel")

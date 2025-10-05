@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.spring.doctor.dto.BookSlotRequest;
 import com.spring.doctor.dto.CreateSlotRequest;
+import com.spring.doctor.dto.PatientEmailService;
 import com.spring.doctor.dto.SlotResponse;
 
 
@@ -17,6 +18,8 @@ public interface SlotService {
 	List<SlotResponse> getAvailableSlotsWithDoctor(Long doctorId);
 	ResponseEntity<String> cancelSlotWithId(Long slotId);
 	SlotResponse bookSlotForPatient(Long slotId, Long patientId);
+	SlotResponse bookSlotForPatient(Long slotId);
+	SlotResponse bookSlotForPatient(PatientEmailService patientEmailService, Long slotId);
 
 }
 

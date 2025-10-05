@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.spring.doctor.dto.BookSlotRequest;
 import com.spring.doctor.dto.CreateSlotRequest;
+import com.spring.doctor.dto.PatientEmailService;
 import com.spring.doctor.dto.SlotResponse;
 import com.spring.doctor.entity.Doctor;
 import com.spring.doctor.entity.Patient;
@@ -25,6 +27,7 @@ import com.spring.doctor.repository.SlotRepository;
 
 @Service
 public class SlotServiceImpl implements SlotService {
+	
 
     @Autowired
     private SlotRepository slotRepository;
@@ -102,14 +105,25 @@ public class SlotServiceImpl implements SlotService {
         }
         slot.setPatient(patientData);
         slot.setStatus(SlotStatus.BOOKED);
-        emailService.sendBookinNotificationToDoctor("somaraju.0801@gmail.com", slot.getDoctor().getName(), patientData.getName(), slot.getStartTime(), slot.getEndTime());
+        
+        
+        callPatientEmailService();
+        
         emailService.sendNotificationToPatient(patientData.getEmail(), patientData.getName(),slot.getDoctor().getName(), slot.getStartTime(), slot.getEndTime());
         Slot updated = slotRepository.save(slot);
         
         return mapToResponse(updated);
     }
 
-    private SlotResponse mapToResponse(Slot slot) {
+    private void callPatientEmailService() {
+    	
+    	WebClient web=WebClient.create();
+    	
+		
+	}
+
+	private SlotResponse mapToResponse(Slot slot) {
+		
         SlotResponse res = new SlotResponse();
         res.setId(slot.getId());
         res.setDate(slot.getDate());
@@ -160,4 +174,31 @@ public class SlotServiceImpl implements SlotService {
 		
 		return null;
 	}
+	
+	@Override
+	public SlotResponse bookSlotForPatient(PatientEmailService patientEmailService,Long slotId) {
+		
+		Optional<Slot> byId = slotRepository.findById(slotId);
+		
+		
+		
+		if(byId.isPresent()) {
+			
+			String name=patientEmailService.getPatientName();
+			Slot slot = byId.get();
+	        emailService.sendBookinNotificationToDoctor("somaraju.0801@gmail.com", slot.getDoctor().getName(), name, slot.getStartTime(), slot.getEndTime());
+			
+			return mapToResponse(byId.get());
+		}
+		
+		return null;
+	}
+
+	@Override
+	public SlotResponse bookSlotForPatient(Long slotId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
