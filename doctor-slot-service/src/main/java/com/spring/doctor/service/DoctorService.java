@@ -1,12 +1,14 @@
 package com.spring.doctor.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.spring.doctor.dto.DoctorDto;
 import com.spring.doctor.dto.DoctorInfo;
 import com.spring.doctor.dto.DoctorResponse;
 import com.spring.doctor.dto.DoctorSpecilizations;
@@ -63,6 +65,30 @@ public class DoctorService {
 		
 		
 		return doctorRepository.findDistinctSpecialization();
+	}
+
+
+	public DoctorDto getDoctorInfo(Long doctorId) {
+		
+		Optional<Doctor> byId = doctorRepository.findById(doctorId);
+		
+		if(byId.isPresent()) {
+			Doctor doctor = byId.get();
+			
+			DoctorDto doctorDto=new DoctorDto();
+			
+			doctorDto.setName(doctor.getName());
+			
+			doctorDto.setHospital(doctor.getHospital());
+			
+			doctorDto.setSpecilization(doctor.getSpecialization());
+			
+			return doctorDto;
+		}
+		
+		return null;
+		
+		
 	}
 	
 	

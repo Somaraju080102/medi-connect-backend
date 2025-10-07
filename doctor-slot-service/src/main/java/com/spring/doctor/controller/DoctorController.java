@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.doctor.dto.DoctorDto;
 import com.spring.doctor.dto.DoctorInfo;
 import com.spring.doctor.dto.DoctorResponse;
 import com.spring.doctor.dto.DoctorSpecilizations;
@@ -26,8 +27,18 @@ public class DoctorController {
 	
 	@GetMapping("/doctors")
 	public ResponseEntity<List<DoctorSummary>> getBySepcilization(@RequestParam String specialization){
-		
 		return ResponseEntity.ok(doctorService.getBySpec(specialization));
+		
+	}
+	
+	@GetMapping("/doctor/info/{doctorId}")
+	public ResponseEntity<DoctorDto> getDoctorInfoo(@PathVariable Long doctorId){
+		
+		System.out.println("Nethod is calling");
+		
+		DoctorDto doctorInfo = doctorService.getDoctorInfo(doctorId);
+		
+		return ResponseEntity.ok(doctorInfo);
 		
 	}
 	
