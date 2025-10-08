@@ -60,7 +60,6 @@ public class SlotController {
 	    	
 	    	return slotService.cancelSlotWithId(slotId);
 	    	
-	    	
 	    }
 	    
 	    @GetMapping("/available/{doctorId}")
