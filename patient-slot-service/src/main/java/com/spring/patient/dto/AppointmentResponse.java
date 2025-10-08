@@ -2,6 +2,7 @@ package com.spring.patient.dto;
 
 import java.time.LocalDateTime;
 
+import com.spring.patient.entity.Appointments;
 import com.spring.patient.entity.model.AppointmentStatus;
 
 public class AppointmentResponse {
@@ -13,6 +14,8 @@ public class AppointmentResponse {
 	private LocalDateTime  slotEndTime;
 	
 	private DoctorDto doctorDto;
+
+	
 
 	public AppointmentStatus getAppointmentStatus() {
 		return appointmentStatus;

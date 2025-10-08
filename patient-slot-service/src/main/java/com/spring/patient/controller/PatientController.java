@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.patient.dto.AppointmentDto;
 import com.spring.patient.dto.AppointmentResponse;
+import com.spring.patient.dto.CancelDto;
 import com.spring.patient.dto.DoctorDto;
 import com.spring.patient.dto.PatientEmailService;
 import com.spring.patient.repo.AppointmentRepo;
@@ -54,15 +55,23 @@ public class PatientController {
 	}
 	
 	
-	@GetMapping("/patient/appointments/{doctorId}")
-	public ResponseEntity<List<AppointmentResponse>> getAppointment(@PathVariable Long doctorId){
+	@GetMapping("/patient/appointments/{pateintId}")
+	public ResponseEntity<List<AppointmentResponse>> getAppointment(@PathVariable Long pateintId){
 		
 		
-		List<AppointmentResponse> appointments = patientAppointments.getAppointments(doctorId);
+		List<AppointmentResponse> appointments = patientAppointments.getAppointments(pateintId);
 		
 		return ResponseEntity.ok(appointments);
 	}
 	
+	@PostMapping("/patient/appointments/cancel")
+	public ResponseEntity<String> cancelAppointment(@RequestBody CancelDto cancelDto ){
+		
+		patientAppointments.cancelSlot(cancelDto);
+		
+		return ResponseEntity.ok("Canceled Slot Sucessful");
+		
+	}
 	
 	
 	
