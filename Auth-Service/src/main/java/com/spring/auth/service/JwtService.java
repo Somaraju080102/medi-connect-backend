@@ -10,6 +10,8 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.spring.auth.entity.Users;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,6 +26,17 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+    
+    public String extractUserId(String token) {
+    	
+		return extractAllClaims(token).get("userId",String.class);
+    	
+    }
+    public String extractRole(String token) {
+    	
+		return extractAllClaims(token).get("role",String.class);
+    	
+    }
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
@@ -34,7 +47,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignKey())
@@ -43,7 +56,7 @@ public class JwtService {
                 .getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -54,17 +67,22 @@ public class JwtService {
 
 
 
-    public String generateToken(String username){
+    public String generateToken(Users username){
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, username);
     }
 
 
 
-    private String createToken(Map<String, Object> claims, String username) {
+    private String createToken(Map<String, Object> claims, Users user) {
+    	
+    	
+
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(username)
+                .setSubject(user.getEmail())
+                .claim("userId", String.valueOf(user.getId()))
+                .claim("role", user.getRole())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*1))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();

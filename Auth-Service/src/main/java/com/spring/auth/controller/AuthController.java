@@ -1,5 +1,7 @@
 package com.spring.auth.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ import com.spring.auth.model.Role;
 import com.spring.auth.repo.UserRepo;
 import com.spring.auth.service.JwtService;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 public class AuthController {
 	
@@ -38,8 +43,13 @@ public class AuthController {
 	UserRepo userRepo;
 	
 	@GetMapping("/auth/greet")
-	public String greetMsg() {
-		return "Welcome to the Auth Service";
+	public String greetMsg(HttpServletRequest request) {
+		
+		Long  attribute = (Long) request.getAttribute("userId");
+	
+		
+		
+		return "Welcome to the Auth Service "+attribute+" "+"is the Current userId of the session "+(String)request.getAttribute("role");
 		
 	}
 	
@@ -71,30 +81,42 @@ public class AuthController {
 	}
 	
 	@PostMapping("/auth/login")
-	public ResponseEntity<String> loginUser(@RequestBody LoginDto loginDto){
+	public ResponseEntity<Map<String, String>> loginUser(@RequestBody LoginDto loginDto){
 		
-		System.out.println("Password "+loginDto.getPassword());
+//		System.out.println("Password "+loginDto.getPassword());
 		
 		
-		System.out.println("Email "+loginDto.getEmail());
+//		System.out.println("Email "+loginDto.getEmail());
 		
 		UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(loginDto.getEmail(),loginDto.getPassword());
 		
 		
-		System.out.println("Email 2 "+loginDto.getEmail());
+//		System.out.println("Email 2 "+loginDto.getEmail());
 
 		Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 		
-		System.out.println("Email 3"+loginDto.getEmail());
+//		System.out.println("Email 3"+loginDto.getEmail());
+		
+		Users users=userRepo.findByEmail(loginDto.getEmail());
+		
+		
+		Map<String,String>hs=new HashMap<>();
 
-		
 		if(authenticate.isAuthenticated()) {
-			String jwtToken=jwtService.generateToken(loginDto.getEmail());
 			
-			return new ResponseEntity<String>(jwtToken,HttpStatus.CREATED);
+			String jwtToken=jwtService.generateToken(users);
+			
+			hs.put("userId", String.valueOf(users.getId()));
+			
+			hs.put("token", jwtToken);
+			hs.put("role", users.getRole().name());
+			
+			return ResponseEntity.ok(hs);
+			
 		}
+		hs.put("Credentials", "Invalid Credentials");
 		
-		return new ResponseEntity<String>("Invalid Credentials",HttpStatus.UNAUTHORIZED);
+		return ResponseEntity.ok(hs);
 		
 		
 	}
