@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.doctor.dto.DoctorDto;
 import com.spring.doctor.dto.DoctorInfo;
-import com.spring.doctor.dto.DoctorResponse;
-import com.spring.doctor.dto.DoctorSpecilizations;
 import com.spring.doctor.dto.DoctorSummary;
 import com.spring.doctor.entity.Doctor;
 import com.spring.doctor.service.DoctorService;
 
 @RestController
+@RequestMapping("/doctor")
 public class DoctorController {
 	
      
@@ -30,6 +30,19 @@ public class DoctorController {
 		return ResponseEntity.ok(doctorService.getBySpec(specialization));
 		
 	}
+	
+	 	@GetMapping("/profile")
+	    public ResponseEntity<String> getDoctorProfile(
+	            @RequestHeader("X-User-Id") String userId,
+	            @RequestHeader("X-User-Role") String role,
+	            @RequestHeader("X-User-Name") String username) {
+	 		
+	 		System.out.println("Is this method calling ");
+
+	        String response = String.format("Doctor Profile → ID: %s | Role: %s | Username: %s", 
+	                                         userId, role, username);
+	        return ResponseEntity.ok(response);
+	    }
 	
 	@GetMapping("/doctor/info/{doctorId}")
 	public ResponseEntity<DoctorDto> getDoctorInfoo(@PathVariable Long doctorId){
