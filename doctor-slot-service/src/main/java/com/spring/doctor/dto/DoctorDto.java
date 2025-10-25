@@ -4,9 +4,11 @@ public class DoctorDto {
 	
 	private String name;
 	
+	private String phone;
+	
 	private String hospital;
 	
-	private String specilization;
+	private String specialization;
 
 	public String getName() {
 		return name;
@@ -24,12 +26,22 @@ public class DoctorDto {
 		this.hospital = hospital;
 	}
 
-	public String getSpecilization() {
-		return specilization;
+
+
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setSpecilization(String specilization) {
-		this.specilization = specilization;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
 	}
 	
 	

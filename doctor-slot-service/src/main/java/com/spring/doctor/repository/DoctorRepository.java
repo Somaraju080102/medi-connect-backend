@@ -19,6 +19,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long>{
 	
 	List<DoctorSummary> findBySpecialization(String specialization);
 	
+	DoctorSummary findByUserId(Long userId);
+	
 	List<DoctorInfo> findBy(PageRequest pageRequest);
 	
 	@Query("SELECT DISTINCT d.specialization AS specialization FROM Doctor d")
