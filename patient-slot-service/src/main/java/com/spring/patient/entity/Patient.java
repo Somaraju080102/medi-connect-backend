@@ -21,6 +21,8 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long patientId;
 	
+	private Long userId;
+	
 	private String patientName;
 	
 	private Integer patientAge;
@@ -84,6 +86,14 @@ public class Patient {
 
 	public void setAppointments(List<Appointments> appointments) {
 		this.appointments = appointments;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
 	

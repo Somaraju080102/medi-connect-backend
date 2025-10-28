@@ -27,6 +27,20 @@ public class Appointments {
 	
 	private Long doctorId;
 	
+	private Long slotId;
+	
+	@Enumerated(EnumType.STRING)
+	private AppointmentStatus appointmentStatus;
+	
+	@ManyToOne
+	@JoinColumn(name = "Patient_fk", nullable = false)
+	private Patient patient;
+	
+	private LocalDateTime slotStartTime;
+	
+	private LocalDateTime slotEndTime;
+	
+	
 	public Long getAppointmentId() {
 		return appointmentId;
 	}
@@ -74,20 +88,6 @@ public class Appointments {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-
-	private Long slotId;
-	
-	@Enumerated(EnumType.STRING)
-	private AppointmentStatus appointmentStatus;
-	
-	@ManyToOne
-	@JoinColumn(name = "Patient_fk", nullable = false)
-	private Patient patient;
-	
-	private LocalDateTime slotStartTime;
-	
-	private LocalDateTime slotEndTime;
-	
 	
 	public LocalDateTime getSlotStartTime() {
 		return slotStartTime;
