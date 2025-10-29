@@ -20,6 +20,8 @@ import com.spring.auth.dto.LoginDto;
 import com.spring.auth.dto.RegisterDto;
 import com.spring.auth.entity.Users;
 import com.spring.auth.model.Role;
+import com.spring.auth.notification.RegistrationNotification;
+import com.spring.auth.publisher.NotificationPublisher;
 import com.spring.auth.repo.UserRepo;
 import com.spring.auth.service.JwtService;
 
@@ -28,6 +30,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class AuthController {
+	
 	
 	
 	@Autowired
@@ -41,6 +44,9 @@ public class AuthController {
 	
 	@Autowired
 	UserRepo userRepo;
+	
+	@Autowired
+	NotificationPublisher notificationPublisher;
 	
 	@GetMapping("/auth/greet")
 	public String greetMsg(HttpServletRequest request) {
@@ -72,7 +78,47 @@ public class AuthController {
 		users.setEmail(registerDto.getEmail());
 		users.setRole(registerDto.getRole());
 		
-		userRepo.save(users);
+//		userRepo.save(users);
+		
+		String name=users.getName();
+		
+		String loginUrl="http://localhost:8082/auth/login";
+		
+	    String body = """
+	            <html>
+	              <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+	                <h2 style="color: #2b7a78;">Hey 👋 %s,</h2>
+	                <p>We’re excited to have you on board! 🎉</p>
+	                
+	                <p>Your registration with <strong>MediConnect</strong> was successful.  
+	                You can now log in to explore doctor appointments, manage your profile, and more.</p>
+	                
+	                <p style="margin-top:20px;">
+	                  <a href="%s" 
+	                     style="background-color:#2b7a78; color:white; padding:10px 20px; text-decoration:none; border-radius:6px; font-weight:bold;">
+	                     🔐 Login to MediConnect
+	                  </a>
+	                </p>
+
+	                <p style="margin-top:20px;">If the above button doesn’t work, copy and paste this link into your browser:<br>
+	                <a href="%s" style="color:#2b7a78;">%s</a></p>
+	                
+	                <p>Cheers,<br><strong>The MediConnect Team 🩺</strong></p>
+	                <hr>
+	                <small style="color:#888;">This is an automated email, please do not reply.</small>
+	              </body>
+	            </html>
+	            """.formatted(name, loginUrl, loginUrl, loginUrl);
+		
+		RegistrationNotification registrationNotification=new RegistrationNotification();
+		
+		
+		registrationNotification.setBody(body);
+		registrationNotification.setTo(users.getEmail());
+		
+		
+		notificationPublisher.publishEmailToExchange(registrationNotification);
+		
 		
 		
 		return new ResponseEntity<String>("Registration Sucessful",HttpStatus.ACCEPTED);
