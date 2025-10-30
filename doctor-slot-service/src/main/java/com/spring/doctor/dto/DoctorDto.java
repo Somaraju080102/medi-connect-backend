@@ -43,6 +43,8 @@ public class DoctorDto {
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
 	}
+
+	
 	
 	
 

@@ -81,7 +81,7 @@ public class DoctorService {
 			
 			doctorDto.setHospital(doctor.getHospital());
 			
-			doctorDto.setSpecilization(doctor.getSpecialization());
+			doctorDto.setSpecialization(doctor.getSpecialization());
 			
 			return doctorDto;
 		}
